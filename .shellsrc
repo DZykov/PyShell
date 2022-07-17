@@ -1,0 +1,2 @@
+test_1=1=int|str|int=descr_1=-=path_1
+test_2=2=-n int|-s str|-nc int=descr_2=-=path_2
