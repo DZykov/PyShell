@@ -7,8 +7,8 @@
         |Command name|Instruction|Description|Runner|Path|
         |____________|___________|___________|______|____|
     
-        Command name -  name by which script/command is executed
-        Instruction  -  how command is run.
+        Command name -  name by which script/command is executed. Can be none.*
+        Instruction  -  how command is run. Can be none.* If none, command is not checked in shell.
             Instruction is written in a format of arguments and the type of an argument.
             
             Types of arguments: int, str, double, pathd, and pathf
@@ -24,9 +24,11 @@
                 Classical:  order of arguments does not matter; however, each ergument has its own unique prefix.
                     Example: c [-s|str]
         
-        Description - the description of a command.
-        Runner - what runs a command/script. If no runner needed, write -
+        Description - the description of a command. Can be none.*
+        Runner - what runs a command/script. Can be none.*
         Path - path to a command/script.
+        
+        *none = -
 
         Example of database:
             ______________________________________________________________________________
@@ -77,20 +79,60 @@ class Collection:
     def get(self, alias):
         """return string of alias or None"""
         return self.cmds.get(alias)
+    
+    
+    def check_type(self, arg, type_):
+        if "int" == type_:
+            return self.is_int(arg)
+        elif "str" == type_:
+            return self.is_string(arg)
+        elif "double" == type_:
+            return self.is_double(arg)
+        elif "pathd" == type_:
+            return self.is_dir(arg)
+        elif "pathf" == type_:
+            return self.is_file(arg)
+        else:
+            return settings.WRONG_ARGS
+
+    
+    def check_classical_cmd(self, data, instruction):
+        args = {}
+        i = 0
+        key = 0
+        while i < len(data):
+            if settings.ARG_PREFIX in data[i]:
+                args[data[i]] = []
+                key = i
+            else:
+                args[data[key]].append(data[i])
+            i += 1
+        for key in args:
+            for element in args[key]:
+                return check_type(element, instruction[key])
+        return settings.WRONG_ARGS
+
+    
+    def check_sctrict_cmd(self, data, instruction):
+        pass
 
 
-    def check_command(self, data):
+    def check_command(self, data, check):
         """return true if command is correct"""
+        if check == False:
+            return settings.GOOD_ARGS
         cmd = data.split()
         alias = cmd[0]
-        instruction = self.cmds.get(alias)
-        if instruction == None:
-            return "Command or alias doesn't exist"
-        if settings.ARG_PREFIX in cmd[0] and isinstance(instruction, dict):
-            pass
-        if settings.ARG_PREFIX not in cmd[0] and isinstance(instruction, list):
-            pass
-        return "Wrong arguments are passed!"
+        got_cmd = self.cmds.get(alias)
+        if got_cmd == None:
+            return settings.CMD_DNE
+        if settings.ARG_PREFIX in data and isinstance(got_cmd, dict):
+            return self.check_classical_cmd(cmd[1:], got_cmd['instruction'])
+        if settings.ARG_PREFIX not in data and isinstance(got_cmd, list):
+            return self.check_sctrict_cmd(cmd[1:], got_cmd['instruction'])
+        if got_cmd['instruction'] == "-":
+            return settings.NEUTRAL_ARGS
+        return settings.WRONG_ARGS
     
 
     def check_arg(arg):
@@ -117,3 +159,5 @@ class Collection:
         pass
 
 col = Collection()
+c = col.check_command("t2 -n 25 -y -s mother -nc 85", True)
+print(c)
