@@ -40,6 +40,7 @@
             |----------------------------------------------------------------------------|
 
 """
+import gc
 import settings
 
 class Collection:
@@ -47,6 +48,7 @@ class Collection:
 
     def __init__(self):
         self.cmds = {}
+        self.cmds_shorts = {}
         self.src = settings.PATH_SRC
         self.load_src()
 
@@ -58,8 +60,6 @@ class Collection:
         for line in lines:
             line = line.strip('\n')
             cmd_lst = line.split(settings.SRC_SEPERATOR)
-            # alias = [cmd_name, instruction, runner, path, description]
-            #self.cmds[cmd_lst[1]] = [cmd_lst[0], cmd_lst[2], cmd_lst[4], cmd_lst[5], cmd_lst[3]]
             alias = cmd_lst[1]
             cmd_name = cmd_lst[0]
             instruction = cmd_lst[2].split(settings.ARG_SEPERATOR)
@@ -74,12 +74,23 @@ class Collection:
             description = cmd_lst[3]
             self.cmds[alias] = {"instruction": instruction, "name": cmd_name, "runner": runner,
                                     "path": path, "description": description}
+            self.cmds_shorts[alias] = {"instruction": instruction, "name": cmd_name}
     
+    
+    def delete_long_cmds(self):
+        del self.cmds
+        gc.collect()
+
 
     def get(self, alias):
         """return string of alias or None"""
         return self.cmds.get(alias)
     
+
+    def get_short(self, alias):
+        """return string of alias or None"""
+        return self.cmds_shorts.get(alias)
+
     
     def check_type(self, arg, type_):
         if "int" == type_:
@@ -109,26 +120,32 @@ class Collection:
             i += 1
         for key in args:
             for element in args[key]:
-                return check_type(element, instruction[key])
-        return settings.WRONG_ARGS
+                if self.check_type(element, instruction[key]) == settings.WRONG_ARGS:
+                    return settings.WRONG_ARGS
+        return settings.GOOD_ARGS
 
     
     def check_sctrict_cmd(self, data, instruction):
-        pass
+        if len(data) != len(instruction):
+            return settings.WRONG_ARGS
+        for i in range(len(instruction)):
+            if self.check_type(data[i], instruction[i]) == settings.WRONG_ARGS:
+                return settings.WRONG_ARGS
+        return settings.GOOD_ARGS
 
 
     def check_command(self, data, check):
         """return true if command is correct"""
         if check == False:
-            return settings.GOOD_ARGS
+            return settings.NEUTRAL_ARGS
         cmd = data.split()
         alias = cmd[0]
-        got_cmd = self.cmds.get(alias)
+        got_cmd = self.cmds_shorts.get(alias)
         if got_cmd == None:
             return settings.CMD_DNE
-        if settings.ARG_PREFIX in data and isinstance(got_cmd, dict):
+        if settings.ARG_PREFIX in data and isinstance(got_cmd['instruction'], dict):
             return self.check_classical_cmd(cmd[1:], got_cmd['instruction'])
-        if settings.ARG_PREFIX not in data and isinstance(got_cmd, list):
+        if settings.ARG_PREFIX not in data and isinstance(got_cmd['instruction'], list):
             return self.check_sctrict_cmd(cmd[1:], got_cmd['instruction'])
         if got_cmd['instruction'] == "-":
             return settings.NEUTRAL_ARGS
@@ -136,28 +153,47 @@ class Collection:
     
 
     def check_arg(arg):
-        pass
+        try:
+            print(x)
+        except:
+            return settings.WRONG_ARGS
 
 
     def is_int(self, data):
-        pass
+        try:
+            int(data)
+            return settings.GOOD_ARGS
+        except:
+            return settings.WRONG_ARGS
 
 
     def is_double(self, data):
-        pass
+        try:
+            float(data)
+            return settings.GOOD_ARGS
+        except:
+            return settings.WRONG_ARGS
     
     
     def is_string(self, data):
-        pass
+        try:
+            str(data)
+            return settings.GOOD_ARGS
+        except:
+            return settings.WRONG_ARGS
 
 
     def is_file(self, data):
-        pass
+        try:
+            os.path.exists(data)
+            return settings.GOOD_ARGS
+        except:
+            return settings.WRONG_ARGS
 
 
     def is_dir(self, data):
-        pass
-
-col = Collection()
-c = col.check_command("t2 -n 25 -y -s mother -nc 85", True)
-print(c)
+        try:
+            os.path.isdir(data)
+            return settings.GOOD_ARGS
+        except:
+            return settings.WRONG_ARGS
