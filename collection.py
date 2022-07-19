@@ -74,7 +74,7 @@ class Collection:
             description = cmd_lst[3]
             self.cmds[alias] = {"instruction": instruction, "name": cmd_name, "runner": runner,
                                     "path": path, "description": description}
-            self.cmds_shorts[alias] = {"instruction": instruction, "name": cmd_name}
+            self.cmds_shorts[alias] = {"instruction": instruction, "runner": runner, "path": path}
     
     
     def delete_long_cmds(self):
@@ -152,9 +152,9 @@ class Collection:
         return settings.WRONG_ARGS
     
 
-    def check_arg(arg):
+    def print_arg(arg):
         try:
-            print(x)
+            print(arg)
         except:
             return settings.WRONG_ARGS
 
