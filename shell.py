@@ -85,7 +85,7 @@ def help():
 def main():
     while True:
         settings.INFO=os.getcwd()
-        left_t = settings.NAME+settings.INFO+settings.SEPERATOR
+        left_t = settings.NAME+settings.SEPERATOR+settings.INFO+settings.ARROW
         inp = input("{} ".format(left_t))
         # inp =  input recognition
         # change print for output recognition

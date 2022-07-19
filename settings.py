@@ -9,7 +9,8 @@ CMD_DNE="Command doesn't exist"
 
 # shell decorations
 NAME="z"
-SEPERATOR=":: ~ >"
+SEPERATOR=" :: "
+ARROW=" ~ >"
 PIPE="|"
 INFO=""
 
