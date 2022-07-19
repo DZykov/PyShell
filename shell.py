@@ -17,7 +17,36 @@ cmds_list = ["help", "cd", "save_mode"]
 
 def execute_commands(command):
     """piping and exec cmds"""
-    pass
+    try:
+        stream_in, stream_out = (0, 0)
+        stream_in = os.dup(0)
+        stream_out = os.dup(1)
+
+        fdin = os.dup(stream_in)
+
+        for cmd in command.split():
+            os.dup2(fdin, 0)
+            os.close(fdin)
+
+            if cmd == command.split(settings.PIPE)[-1]:
+                fdout = os.dup(stream_out)
+            else:
+                fdin, fdout = os.pipe()
+            
+            os.dup2(fdout, 1)
+            os.close(fdout)
+            
+            try:
+                run_command(cmd)
+            except:
+                print(settings.CMD_DNE)
+        
+        os.dup2(stream_in, 0)
+        os.dup2(stream_out, 1)
+        os.close(stream_in)
+        os.close(stream_out)
+    except:
+        return settings.CMD_DNE
 
 
 def run_command(command):
@@ -92,9 +121,9 @@ def main():
         if inp == "exit":
             break
         elif settings.PIPE in inp:
-            print(execute_commands(inp))
+            print(execute_commands(inp), end="")
         else:
-            print(run_command(inp))
+            print(run_command(inp), end="")
 
 if '__main__' == __name__:
     main()
