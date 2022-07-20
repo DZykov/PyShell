@@ -136,6 +136,8 @@ class Collection:
 
     def check_command(self, data, check):
         """return true if command is correct"""
+        if len(data) == 0:
+            return settings.CMD_DNE
         if check == False:
             return settings.NEUTRAL_ARGS
         cmd = data.split()
