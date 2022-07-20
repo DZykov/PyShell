@@ -43,7 +43,7 @@ def execute_commands(command):
                 run_command(cmd.strip())
             except:
                 print(settings.CMD_DNE)
-        
+
         os.dup2(stream_in, 0)
         os.dup2(stream_out, 1)
 
@@ -61,6 +61,7 @@ def run_command(command):
         try:
             process = subprocess.run(command.split(" "), capture_output=True)
             exec_out = process.stdout.decode("utf-8")
+            # output recognition
             print(exec_out)
             process.communicate(exec_out)
         except Exception:
@@ -75,7 +76,12 @@ def run_command(command):
             if runner == settings.NONE:
                 runner = ''
             exec_str = runner+" "+collection.get_short(cmd_name)["path"]+'/'+collection.get_short(cmd_name)["name"]
-            subprocess.run(command.split(" "))
+            subprocess.run(exec_str.split(" "))
+            # make a function
+            exec_out = process.stdout.decode("utf-8")
+            # output recognition
+            print(exec_out)
+            process.communicate(exec_out)
 
 
 def local_cmds(cmd_name, cmd_lst):
