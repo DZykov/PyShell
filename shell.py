@@ -61,7 +61,7 @@ def run_command(command):
         try:
             process = subprocess.run(command.split(" "), capture_output=True)
             exec_out = process.stdout.decode("utf-8")
-            # output recognition
+            # output recognition + no return
             print(exec_out)
             process.communicate(exec_out)
         except Exception:
@@ -70,6 +70,7 @@ def run_command(command):
         cmd_lst = command.split()
         cmd_name = cmd_lst[0]
         if cmd_name in cmds_list:
+            # output recognition + no return
             return local_cmds(cmd_name, cmd_lst[1:])
         else:
             runner = collection.get_short(cmd_name)["runner"]
@@ -79,7 +80,7 @@ def run_command(command):
             subprocess.run(exec_str.split(" "))
             # make a function
             exec_out = process.stdout.decode("utf-8")
-            # output recognition
+            # output recognition + no return
             print(exec_out)
             process.communicate(exec_out)
 
