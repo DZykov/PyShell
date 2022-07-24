@@ -14,22 +14,6 @@ import os
 import settings
 
 
-def is_command(data):
-    pass
-
-
-def check_command(data):
-    pass
-
-
-def extract_command(data):
-    pass
-
-
-def extract_text(data):
-    pass
-
-
 def in_text():
     settings.INFO=os.getcwd()
     left_t = settings.NAME+settings.SEPERATOR+settings.INFO+settings.ARROW

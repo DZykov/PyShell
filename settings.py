@@ -29,3 +29,6 @@ SAVE_MODE = True
 NONE="-"
 OUT="text" # or "voice"
 IN="text" # or "voice"
+LANG="en" # en
+LANG_MODEL="v3_en" # v3_en
+SPEAKER="en_0" # en_0-117 kseniya, baya

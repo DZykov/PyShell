@@ -68,14 +68,7 @@ def run_command(command):
     """Run single cmd"""
     check = find_command(command)
     if check == settings.CMD_DNE or check == settings.WRONG_ARGS or check == None:
-        try:
-            process = subprocess.run(command.split(" "), capture_output=True)
-            exec_out = process.stdout.decode("utf-8")
-            ouput_(exec_out)
-            process.communicate(exec_out)
-        except Exception:
-            check = settings.CMD_DNE
-            ouput_(check)
+        exec_subprocess(command)
     else:
         cmd_lst = command.split()
         cmd_name = cmd_lst[0]
@@ -86,10 +79,18 @@ def run_command(command):
             if runner == settings.NONE:
                 runner = ''
             exec_str = runner+" "+collection.get_short(cmd_name)["path"]+'/'+collection.get_short(cmd_name)["name"]
-            process = subprocess.run(exec_str.split(" "))
-            exec_out = process.stdout.decode("utf-8")
-            ouput_(exec_out)
+            exec_subprocess(exec_str)
+
+
+def exec_subprocess(exec_str):
+    try:
+        process = subprocess.run(exec_str.split(" "), capture_output=True)
+        exec_out = process.stdout.decode("utf-8")
+        ouput_(exec_out)
+        if type(process) is subprocess.CalledProcessError:
             process.communicate(exec_out)
+    except Exception as ex:
+            ouput_(ex)
 
 
 def local_cmds(cmd_name, cmd_lst):
