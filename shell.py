@@ -16,7 +16,7 @@ import sys
 collection = Collection()
 collection.delete_long_cmds()
 
-cmds_list = ["help", "cd", "save_mode"]
+cmds_list = ["help", "cd", "save_mode", "output_mode", "input_mode"]
 
 
 def execute_commands(command):
@@ -65,6 +65,7 @@ def run_command(command):
             ouput_(exec_out)
             process.communicate(exec_out)
         except Exception:
+            check = settings.CMD_DNE
             ouput_(check)
     else:
         cmd_lst = command.split()
@@ -80,27 +81,6 @@ def run_command(command):
             exec_out = process.stdout.decode("utf-8")
             ouput_(exec_out)
             process.communicate(exec_out)
-
-
-def ouput_(out):
-    """Produce output according to settings"""
-    if out == None:
-        return
-    out = out.strip()
-    if settings.OUT == settings.TEXT:
-        output.print_text(out)
-    if settings.OUT == settings.VOICE:
-        output.put_voice(out)
-
-
-def input_():
-    """Take input according to settings"""
-    if settings.IN == settings.TEXT:
-        in_ = input_recognition.in_text()
-        return in_
-    if settings.IN == settings.VOICE:
-        in_ = input_recognition.in_voice()
-        return in_
 
 
 def local_cmds(cmd_name, cmd_lst):
@@ -148,6 +128,19 @@ def find_command(command):
 def save_mode(save):
     """Toogle save mode"""
     settings.SAVE_MODE = bool(save)
+    return "Save mode set to {}".format(settings.SAVE_MODE)
+
+
+def input_mode(in_):
+    """Toogle input mode"""
+    settings.IN = bool(in_)
+    return "Input mode set to {}".format(settings.IN)
+
+
+def output_mode(out):
+    """Toogle output mode"""
+    settings.OUT = bool(out)
+    return "Output mode set to {}".format(settings.OUT)
 
 
 def cd(path):
@@ -173,6 +166,28 @@ def main():
             execute_commands(inp)
         else:
             run_command(inp)
+
+
+def ouput_(out):
+    """Produce output according to settings"""
+    if out == None:
+        return
+    out = out.strip()
+    if settings.OUT == settings.TEXT:
+        output.print_text(out)
+    if settings.OUT == settings.VOICE:
+        output.put_voice(out)
+
+
+def input_():
+    """Take input according to settings"""
+    if settings.IN == settings.TEXT:
+        in_ = input_recognition.in_text()
+        return in_
+    if settings.IN == settings.VOICE:
+        in_ = input_recognition.in_voice()
+        return in_
+
 
 if '__main__' == __name__:
     main()
