@@ -7,16 +7,25 @@
 import os
 import subprocess
 import settings
-from collection import Collection
-from io import StringIO
 import output
 import input_recognition
 import sys
+from collection import Collection
+from io import StringIO
+
 
 collection = Collection()
 collection.delete_long_cmds()
 
+
 cmds_list = ["help", "cd", "save_mode", "output_mode", "input_mode"]
+
+
+#############################################################################
+####                                                                     ####
+####                               Methods                               ####
+####                                                                     ####
+#############################################################################
 
 
 def execute_commands(command):
@@ -123,7 +132,14 @@ def find_command(command):
             return settings.NEUTRAL_ARGS
         check = collection.check_command(command, settings.SAVE_MODE)
         return check
-    
+
+
+#############################################################################
+####                                                                     ####
+####                         Built-in commands                           ####
+####                                                                     ####
+#############################################################################
+
 
 def save_mode(save):
     """Toogle save mode"""
@@ -157,17 +173,6 @@ def help():
           Supports something.""")
 
 
-def main():
-    while True:
-        inp = input_()
-        if inp == "exit":
-            break
-        elif settings.PIPE in inp:
-            execute_commands(inp)
-        else:
-            run_command(inp)
-
-
 def ouput_(out):
     """Produce output according to settings"""
     if out == None:
@@ -187,6 +192,24 @@ def input_():
     if settings.IN == settings.VOICE:
         in_ = input_recognition.in_voice()
         return in_
+
+
+#############################################################################
+####                                                                     ####
+####                                 Main                                ####
+####                                                                     ####
+#############################################################################
+
+
+def main():
+    while True:
+        inp = input_()
+        if inp == "exit":
+            break
+        elif settings.PIPE in inp:
+            execute_commands(inp)
+        else:
+            run_command(inp)
 
 
 if '__main__' == __name__:
