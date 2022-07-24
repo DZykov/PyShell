@@ -18,10 +18,9 @@ collection.delete_long_cmds()
 
 cmds_list = ["help", "cd", "save_mode"]
 
-exec_out = "12"
 
 def execute_commands(command):
-    """piping and exec cmds"""
+    """Piping and exec cmds in order"""
     try:     
 
         stream_in, stream_out = (0, 0)
@@ -57,7 +56,7 @@ def execute_commands(command):
 
 
 def run_command(command):
-    """run single cmd"""
+    """Run single cmd"""
     check = find_command(command)
     if check == settings.CMD_DNE or check == settings.WRONG_ARGS or check == None:
         try:
@@ -84,6 +83,7 @@ def run_command(command):
 
 
 def ouput_(out):
+    """Produce output according to settings"""
     if out == None:
         return
     out = out.strip()
@@ -94,6 +94,7 @@ def ouput_(out):
 
 
 def input_():
+    """Take input according to settings"""
     if settings.IN == settings.TEXT:
         in_ = input_recognition.in_text()
         return in_
@@ -103,6 +104,7 @@ def input_():
 
 
 def local_cmds(cmd_name, cmd_lst):
+    """Call the commands that are coded in shell itself"""
      # no args
     if len(cmd_lst) == 0:
         if cmd_name == "help":
@@ -118,11 +120,21 @@ def local_cmds(cmd_name, cmd_lst):
         except:
             return settings.WRONG_ARGS
     else: 
-        pass
     # mutliple args
+        try:
+            data = cmd_lst[0:]
+            """
+            if cmd_name == "save_mode":
+                return save_mode(data)
+            elif cmd_name == "cd":
+                return cd(data)
+            """
+        except:
+            return settings.WRONG_ARGS
 
 
 def find_command(command):
+    """Find command and return it's status"""
     try:
         if command.split()[0] in cmds_list:
             return settings.NEUTRAL_ARGS
@@ -134,6 +146,7 @@ def find_command(command):
     
 
 def save_mode(save):
+    """Toogle save mode"""
     settings.SAVE_MODE = bool(save)
 
 
