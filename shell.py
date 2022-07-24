@@ -9,6 +9,8 @@ import subprocess
 import settings
 from collection import Collection
 from io import StringIO
+import output
+import input_recognition
 import sys
 
 collection = Collection()
@@ -42,7 +44,7 @@ def execute_commands(command):
             try:
                 run_command(cmd.strip())
             except:
-                print(settings.CMD_DNE)
+                ouput_(settings.CMD_DNE)
 
         os.dup2(stream_in, 0)
         os.dup2(stream_out, 1)
@@ -51,7 +53,7 @@ def execute_commands(command):
         os.close(stream_out)
 
     except:
-        return settings.CMD_DNE
+        ouput_(settings.CMD_DNE)
 
 
 def run_command(command):
@@ -61,28 +63,43 @@ def run_command(command):
         try:
             process = subprocess.run(command.split(" "), capture_output=True)
             exec_out = process.stdout.decode("utf-8")
-            # output recognition + no return
-            print(exec_out)
+            ouput_(exec_out)
             process.communicate(exec_out)
         except Exception:
-            return check
+            ouput_(check)
     else:
         cmd_lst = command.split()
         cmd_name = cmd_lst[0]
         if cmd_name in cmds_list:
-            # output recognition + no return
-            return local_cmds(cmd_name, cmd_lst[1:])
+            ouput_(local_cmds(cmd_name, cmd_lst[1:]))
         else:
             runner = collection.get_short(cmd_name)["runner"]
             if runner == settings.NONE:
                 runner = ''
             exec_str = runner+" "+collection.get_short(cmd_name)["path"]+'/'+collection.get_short(cmd_name)["name"]
-            subprocess.run(exec_str.split(" "))
-            # make a function
+            process = subprocess.run(exec_str.split(" "))
             exec_out = process.stdout.decode("utf-8")
-            # output recognition + no return
-            print(exec_out)
+            ouput_(exec_out)
             process.communicate(exec_out)
+
+
+def ouput_(out):
+    if out == None:
+        return
+    out = out.strip()
+    if settings.OUT == settings.TEXT:
+        output.print_text(out)
+    if settings.OUT == settings.VOICE:
+        output.put_voice(out)
+
+
+def input_():
+    if settings.IN == settings.TEXT:
+        in_ = input_recognition.in_text()
+        return in_
+    if settings.IN == settings.VOICE:
+        in_ = input_recognition.in_voice()
+        return in_
 
 
 def local_cmds(cmd_name, cmd_lst):
@@ -136,26 +153,13 @@ def help():
 
 def main():
     while True:
-        settings.INFO=os.getcwd()
-        left_t = settings.NAME+settings.SEPERATOR+settings.INFO+settings.ARROW
-        inp = input("{} ".format(left_t))
-        # inp =  input recognition
-        # change print for output recognition
+        inp = input_()
         if inp == "exit":
             break
         elif settings.PIPE in inp:
-            #sys.stdout = term_stdout
-            a = execute_commands(inp)
-            print("_"*20)
-            print(a)
-            #sys.stdout = sys.__stdout__
-            #print(execute_commands(inp), end="\n")
+            execute_commands(inp)
         else:
-            a = run_command(inp)
-            print("_"*20)
-            print(a)
-            #print(run_command(inp), end="\n")
-        print(exec_out)
+            run_command(inp)
 
 if '__main__' == __name__:
     main()

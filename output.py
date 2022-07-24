@@ -10,28 +10,8 @@
     Voice output accepts text and transforms it to voice.
 """
 
-import collection.Collection
-
-path = ""
-
-
-collection = Collection(path)
-
-
-def is_command(data):
-    pass
-
-
-def check_command(data):
-    pass
-
-
-def put_command(data):
-    pass
-
-
-def put_text(data):
-    pass
+def print_text(data):
+    print(data)
 
 
 def put_voice(data):

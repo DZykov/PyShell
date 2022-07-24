@@ -9,10 +9,9 @@
 
     Command input accepts command and checks it.
 """
-import collection.Collection
 
-
-collection = Collection()
+import os
+import settings
 
 
 def is_command(data):
@@ -31,5 +30,12 @@ def extract_text(data):
     pass
 
 
-def recognize(data):
+def in_text():
+    settings.INFO=os.getcwd()
+    left_t = settings.NAME+settings.SEPERATOR+settings.INFO+settings.ARROW
+    inp = input("{} ".format(left_t))
+    return inp
+
+
+def in_voice():
     pass
