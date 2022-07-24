@@ -49,6 +49,7 @@ def print_text(data):
     print(beautify(data))
 
 
+# have to accept cmd_name
 def put_voice(data):
     is_cyrillic = regex.search(r'\p{IsCyrillic}', data)
     

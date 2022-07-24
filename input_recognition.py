@@ -65,7 +65,7 @@ def beautify(data):
         print(left_t, end="")
         data = data.replace("settings.A_NAME", "")
 
-        # transform to commands NLTK
+        # transform to commands with NLTK
         print(data)
         return data
     return 1
