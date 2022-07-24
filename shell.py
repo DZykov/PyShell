@@ -74,7 +74,7 @@ def run_command(command):
         cmd_name = cmd_lst[0]
         if cmd_name in cmds_list:
             ouput_(local_cmds(cmd_name, cmd_lst[1:]))
-        else:
+        elif check != None:
             runner = collection.get_short(cmd_name)["runner"]
             if runner == settings.NONE:
                 runner = ''
@@ -93,6 +93,18 @@ def exec_subprocess(exec_str):
             ouput_(ex)
 
 
+def find_command(command):
+    """Find command and return it's status"""
+    try:
+        if command.split()[0] in cmds_list:
+            return settings.NEUTRAL_ARGS
+    except:
+        if command in cmds_list:
+            return settings.NEUTRAL_ARGS
+        check = collection.check_command(command, settings.SAVE_MODE)
+        return check
+
+
 def local_cmds(cmd_name, cmd_lst):
     """Call the commands that are coded in shell itself"""
      # no args
@@ -107,6 +119,10 @@ def local_cmds(cmd_name, cmd_lst):
                 return save_mode(data)
             elif cmd_name == "cd":
                 return cd(data)
+            elif cmd_name == "output_mode":
+                return output_mode(data)
+            elif cmd_name == "input_mode":
+                return input_mode(data)
         except:
             return settings.WRONG_ARGS
     else: 
@@ -123,18 +139,6 @@ def local_cmds(cmd_name, cmd_lst):
             return settings.WRONG_ARGS
 
 
-def find_command(command):
-    """Find command and return it's status"""
-    try:
-        if command.split()[0] in cmds_list:
-            return settings.NEUTRAL_ARGS
-    except:
-        if command in cmds_list:
-            return settings.NEUTRAL_ARGS
-        check = collection.check_command(command, settings.SAVE_MODE)
-        return check
-
-
 #############################################################################
 ####                                                                     ####
 ####                         Built-in commands                           ####
@@ -144,19 +148,19 @@ def find_command(command):
 
 def save_mode(save):
     """Toogle save mode"""
-    settings.SAVE_MODE = bool(save)
+    settings.SAVE_MODE = save in ("true", "True", "t")
     return "Save mode set to {}".format(settings.SAVE_MODE)
 
 
 def input_mode(in_):
     """Toogle input mode"""
-    settings.IN = bool(in_)
+    settings.IN = in_
     return "Input mode set to {}".format(settings.IN)
 
 
 def output_mode(out):
     """Toogle output mode"""
-    settings.OUT = bool(out)
+    settings.OUT = out
     return "Output mode set to {}".format(settings.OUT)
 
 
@@ -173,12 +177,18 @@ def help():
     return("""Shell implementation in Python.
           Supports something.""")
 
+#############################################################################
+####                                                                     ####
+####                             [In][Out]put                            ####
+####                                                                     ####
+#############################################################################
+
 
 def ouput_(out):
     """Produce output according to settings"""
     if out == None:
         return
-    out = out.strip()
+    out = str(out).strip()
     if settings.OUT == settings.TEXT:
         output.print_text(out)
     if settings.OUT == settings.VOICE:
