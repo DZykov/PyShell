@@ -18,7 +18,7 @@ collection = Collection()
 collection.delete_long_cmds()
 
 
-cmds_list = ["help", "cd", "save_mode", "output_mode", "input_mode"]
+cmds_list = ["help", "cd", "save_mode", "output_mode", "input_mode", "change_lang"]
 
 
 #############################################################################
@@ -123,6 +123,8 @@ def local_cmds(cmd_name, cmd_lst):
                 return output_mode(data)
             elif cmd_name == "input_mode":
                 return input_mode(data)
+            elif cmd_name == "change_lang":
+                return change_input_lang(data)
         except:
             return settings.WRONG_ARGS
     else: 
@@ -144,6 +146,14 @@ def local_cmds(cmd_name, cmd_lst):
 ####                         Built-in commands                           ####
 ####                                                                     ####
 #############################################################################
+
+
+def change_input_lang(lang):
+    if lang == "en":
+        settings.IN_LANG = "en"
+    elif lang == "ru":
+        settings.IN_LANG = "ru"
+    return "Input lang set to {}".format(settings.IN_LANG)
 
 
 def save_mode(save):
@@ -215,7 +225,9 @@ def input_():
 def main():
     while True:
         inp = input_()
-        if inp == "exit":
+        if inp == 1:
+            pass
+        elif inp == "exit":
             break
         elif settings.PIPE in inp:
             execute_commands(inp)
