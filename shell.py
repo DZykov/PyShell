@@ -12,10 +12,12 @@ import input_recognition
 import sys
 import keyboard
 from collection import Collection
+from history import History
 from io import StringIO
 
 
 collection = Collection()
+history = History()
 collection.delete_long_cmds()
 
 
@@ -67,6 +69,7 @@ def execute_commands(command):
 
 def run_command(command):
     """Run single cmd"""
+    history.add(command)
     check = find_command(command)
     if check == settings.CMD_DNE or check == settings.WRONG_ARGS or check == None:
         exec_subprocess(command)
