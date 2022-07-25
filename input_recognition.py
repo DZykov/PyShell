@@ -60,6 +60,7 @@ def in_voice():
 
 
 def beautify(data):
+    # TODO
     if settings.A_NAME in data:
         left_t = settings.NAME+settings.SEPERATOR+settings.INFO+settings.ARROW
         print(left_t, end="")

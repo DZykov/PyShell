@@ -15,10 +15,13 @@ import settings
 import regex
 import torch
 import time
+from history import History
 import sounddevice as sd
 
 
 sleep_ = lambda audio: (len(audio) / sample_rate) + 0.5
+
+history = History()
 
 sample_rate = 48000
 device = torch.device('cpu')
@@ -41,22 +44,28 @@ model_ru.to(device)
 model_en.to(device)
 
 
-def beautify(data):
+def beautifyT(data):
+    # TODO
     return data
 
 
+def beautifyV(data, cmd):
+    # TODO
+    return data
+
+
+
 def print_text(data):
-    print(beautify(data))
+    print(beautifyT(data))
 
 
-# have to accept cmd_name
 def put_voice(data):
     is_cyrillic = regex.search(r'\p{IsCyrillic}', data)
     
     if is_cyrillic is None:
-        english_voice(data)
+        english_voice(beautifyV(data, history.get_last()))
     else:
-        russian_voice(data)
+        russian_voice(beautifyV(data, history.get_last()))
 
 
 
