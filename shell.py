@@ -10,6 +10,7 @@ import settings
 import output
 import input_recognition
 import sys
+import keyboard
 from collection import Collection
 from io import StringIO
 

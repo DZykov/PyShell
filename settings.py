@@ -18,6 +18,7 @@ INFO=""
 
 # paths
 PATH_SRC=".shellsrc"
+HISTORY_SRC=".history"
 
 # src layout
 SRC_SEPERATOR="="
@@ -25,7 +26,8 @@ ARG_SEPERATOR="|"
 ARG_PREFIX="-"
 
 # shell constants
-SAVE_MODE = True
+HISTORY_MAX=10
+SAVE_MODE=True
 NONE="-"
 OUT="text" # or "voice"
 IN="text" # or "voice"
