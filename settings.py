@@ -39,3 +39,4 @@ LANG_EN="en"
 LANG_MODEL_EN="v3_en" 
 SPEAKER_EN="en_0" # en_0-117
 A_NAME="rachel"
+DEVICE=18 # sounddevice

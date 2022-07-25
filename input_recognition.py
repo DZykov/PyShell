@@ -24,7 +24,7 @@ model_en = vosk.Model("model_small_en")
 model = model_en
 samplerate = 16000
 # print(sd.query_devices())
-device = 18 # device has to be specified
+device = settings.DEVICE # device has to be specified
 
 q = queue.Queue()
 
