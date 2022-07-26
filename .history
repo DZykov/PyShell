@@ -1,5 +1,5 @@
+test
 mocp --exit
-mocp --play
 mocp --append /home/demid/Music/Rock
 mocp -S
 change_lang en

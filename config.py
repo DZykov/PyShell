@@ -7,6 +7,7 @@ TBR_ALIAS = ('скажи', 'покажи', 'ответь', 'произнеси',
 INTERJECTIONS = ('is', 'are', 'это') # not the right term
 
 # commands are either from collection, built-in or cli/shell apps
+# NOTE: ("test",) has to have a comma, since only 1 element
 CMD_LIST = {
     "mocp -S | mocp --append /home/demid/Music/Rock | mocp --play": ('play music', 'music please', 'поставь музыку', 'сыграй что-нибудь'),
     "mocp --exit": ('stop', 'enough', 'стоп', 'хватит'),
@@ -24,13 +25,16 @@ CMD_LIST = {
     "change_lang en": ('english', 'англиский'),
     "change_lang ru":('russian', 'русский'),
     "exit": ('exit', 'выход'),
+    "test": ("test",)
 }
 
+# commands with custom output for both lang
 CMD_OUT = {
     "mocp --play": {
-                    "en": ('I am strating to sing'),
+                    "en": ('I am starting to sing'),
                     "ru": ('Начинаю петь')
                     },
 }
 
+# commands that produce output and run in combination with other commands should be ignored
 CMD_INGORE = ["mocp --append /home/demid/Music/Rock", "mocp -S"]

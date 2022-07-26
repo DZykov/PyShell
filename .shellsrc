@@ -1,2 +1,1 @@
-test_1=t1=int|str|int=descr_1=-=path_1
-test_2=t2=-n int|-s str|-nc int=descr_2=-=path_2
+test.sh=test=*=Example of .shellsrc=bash=/home/demid/Documents/Projects/shell

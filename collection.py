@@ -28,7 +28,7 @@
         Runner - what runs a command/script. Can be none.*
         Path - path to a command/script.
         
-        *none = -
+        *none = *
 
         Example of database:
             ______________________________________________________________________________
@@ -74,7 +74,7 @@ class Collection:
             description = cmd_lst[3]
             self.cmds[alias] = {"instruction": instruction, "name": cmd_name, "runner": runner,
                                     "path": path, "description": description}
-            self.cmds_shorts[alias] = {"instruction": instruction, "runner": runner, "path": path}
+            self.cmds_shorts[alias] = {"instruction": instruction, "runner": runner, "path": path, "name": cmd_name}
     
     
     def delete_long_cmds(self):
@@ -145,12 +145,12 @@ class Collection:
         got_cmd = self.cmds_shorts.get(alias)
         if got_cmd == None:
             return settings.CMD_DNE
+        if got_cmd['instruction'][0] == settings.NONE:
+            return settings.NEUTRAL_ARGS
         if settings.ARG_PREFIX in data and isinstance(got_cmd['instruction'], dict):
             return self.check_classical_cmd(cmd[1:], got_cmd['instruction'])
         if settings.ARG_PREFIX not in data and isinstance(got_cmd['instruction'], list):
             return self.check_sctrict_cmd(cmd[1:], got_cmd['instruction'])
-        if got_cmd['instruction'] == "-":
-            return settings.NEUTRAL_ARGS
         return settings.WRONG_ARGS
     
 

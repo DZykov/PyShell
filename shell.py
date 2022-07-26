@@ -104,6 +104,8 @@ def find_command(command):
     try:
         if command.split()[0] in cmds_list:
             return settings.NEUTRAL_ARGS
+        check = collection.check_command(command, settings.SAVE_MODE)
+        return check
     except:
         if command in cmds_list:
             return settings.NEUTRAL_ARGS

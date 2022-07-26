@@ -45,15 +45,14 @@ def callback_(indata, frames, time, status):
 
 
 def in_voice():
-    if settings.IN_LANG == "en":
+    if settings.IN_LANG == settings.LANG_EN:
         model = model_en
-    elif settings.IN_LANG == "ru":
+    elif settings.IN_LANG == settings.LANG_RU:
         model = model_ru
     else:
         model = model_en
     with sd.RawInputStream(samplerate=samplerate, blocksize=8000, device=device, dtype='int16',
                            channels=1, callback=callback_):
-
         rec = vosk.KaldiRecognizer(model, samplerate)
         while True:
             data = q.get()
@@ -62,6 +61,7 @@ def in_voice():
 
 
 def beautify(data):
+    print(data)
     if data.startswith(config.NAME_ALIAS):
         cmd = find_weighted_cmd(filter(data))
         left_t = settings.NAME+settings.SEPERATOR+settings.INFO+settings.ARROW+" "
@@ -79,6 +79,7 @@ def filter(data):
         cmd = cmd.replace(word, '').strip()
     for word in config.INTERJECTIONS:
         cmd = cmd.replace(word, '').strip()
+    print(cmd)
     return cmd
 
 
