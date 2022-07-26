@@ -5,7 +5,7 @@ class History:
 
 
     def __init__(self):
-        self.src = settings.PATH_SRC
+        self.src = settings.HISTORY_SRC
         self.history = []
         self.load_src()
 
@@ -14,7 +14,7 @@ class History:
         lines = []
         with open(self.src, 'r') as f:
             for line in f:
-                self.history.insert(0, line[::-1])
+                self.history.insert(0, line[:-1])
     
     
     def write_src(self):
