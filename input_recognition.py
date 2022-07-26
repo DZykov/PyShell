@@ -63,9 +63,10 @@ def in_voice():
 
 def beautify(data):
     if data.startswith(config.NAME_ALIAS):
+        cmd = find_weighted_cmd(filter(data))
         left_t = settings.NAME+settings.SEPERATOR+settings.INFO+settings.ARROW
         print(left_t, end="")
-        cmd = find_weighted_cmd(filter(data))
+        print(cmd)
         return cmd
     return 1
 

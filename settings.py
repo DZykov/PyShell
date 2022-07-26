@@ -8,6 +8,10 @@ NEUTRAL_ARGS="Arguments are not checked!"
 CMD_DNE="Command doesn't exist"
 TEXT="text"
 VOICE="voice"
+LANG_RU="ru"
+LANG_EN="en"
+FLANG_RU="russian"
+FLANG_EN="english"
 
 # shell decorations
 NAME="z"
@@ -32,10 +36,8 @@ NONE="-"
 OUT="text" # or "voice"
 IN="voice" # or "voice"
 IN_LANG="en" # or ru
-LANG_RU="ru"
 LANG_MODEL_RU="v3_1_ru"
 SPEAKER_RU="xenia" #kseniya, baya
-LANG_EN="en"
 LANG_MODEL_EN="v3_en" 
 SPEAKER_EN="en_0" # en_0-117
 A_NAME="rachel"

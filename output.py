@@ -51,6 +51,7 @@ def beautifyT(data):
 
 def beautifyV(data, cmd):
     # TODO
+    cmd = history.get_last()
     return data
 
 

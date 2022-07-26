@@ -87,8 +87,8 @@ def run_command(command):
 
 
 def exec_subprocess(exec_str):
-    try:                                    #.split(" ")
-        process = subprocess.run(exec_str, capture_output=True, shell=True)
+    try:                                    
+        process = subprocess.run(exec_str.split(" "), capture_output=True)#, shell=True)
         exec_out = process.stdout.decode("utf-8")
         ouput_(exec_out)
         if type(process) is subprocess.CalledProcessError:
@@ -153,9 +153,9 @@ def local_cmds(cmd_name, cmd_lst):
 
 
 def change_input_lang(lang):
-    if lang == "en":
+    if lang == settings.LANG_EN or lang == settings.FLANG_EN:
         settings.IN_LANG = "en"
-    elif lang == "ru":
+    elif lang == settings.LANG_RU or lang == settings.FLANG_RU:
         settings.IN_LANG = "ru"
     return "Input lang set to {}".format(settings.IN_LANG)
 
@@ -166,15 +166,17 @@ def save_mode(save):
     return "Save mode set to {}".format(settings.SAVE_MODE)
 
 
-def input_mode(in_):
+def input_mode(str1):
     """Toogle input mode"""
-    settings.IN = in_
+    if str1 == settings.TEXT or str1 == settings.VOICE:
+        settings.IN = str1
     return "Input mode set to {}".format(settings.IN)
 
 
 def output_mode(out):
     """Toogle output mode"""
-    settings.OUT = out
+    if out == settings.TEXT or out == settings.VOICE:
+        settings.OUT = out
     return "Output mode set to {}".format(settings.OUT)
 
 
