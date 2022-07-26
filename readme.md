@@ -5,7 +5,6 @@
    - [Demo](#Demo "Goto Demo")
    - [Installation](#Installation "Goto Installation")
    - [Features](#Features "Goto Features")
-   - [Commands](#Commands "Goto Commands")
    - [Voice assistant configutation](#Voice_assistant_configutation "Goto Voice assistant configutation")
    - [.shellsrc](#.shellsrc "Goto .shellsrc")
 
@@ -39,7 +38,7 @@ Clone the repo, open the folder and run the source file
 - /config.py - contains all commands and outputs for voice assistant. This is the only file that should be edited to add commands to the voice assistant. Check the file for more specific instructions.
 - /.shellsrc containes custom scripts for the shell. This file should be edited to add more commands to the shell.
 
-## Voice assistant configutation
+## Voice_assistant_configutation
 
 - NAME_ALIAS is a list of how to call the voice assistant.
 - TBR_ALIAS is a list of key words in a voice command
