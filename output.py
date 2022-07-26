@@ -65,6 +65,7 @@ def print_text(data):
 def put_voice(data):
     txt = beautifyV(data)
     is_cyrillic = regex.search(r'\p{IsCyrillic}', txt)
+    print_text(txt)
     if txt == "":
         return 
     if is_cyrillic is None:
