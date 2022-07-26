@@ -28,6 +28,7 @@ Clone the repo, open the folder and run the source file
    - Shell supports all comands and unix based packages
    - Voice assistant supports two languages: english and russian
    - Easy configuaration of shell scripts and voice assistant
+   - Easy change of voice
    - Supports piping
    - Supports safe entry for custom scripts
    - Fully customizable and hackable
