@@ -1,9 +1,9 @@
+mocp --exit
 mocp --play
 mocp --append /home/demid/Music/Rock
 mocp -S
-output_mode voice
-change_lang ru
-input_mode voice
-mocp -S
-mocp --append /home/demid/Music/Rock
+change_lang en
+mocp --exit
+mocp --next
 mocp --play
+mocp --append /home/demid/Music/Rock

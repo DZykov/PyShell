@@ -14,6 +14,7 @@ import keyboard
 from collection import Collection
 from history import History
 from io import StringIO
+from config import CMD_INGORE
 
 
 collection = Collection()
@@ -90,7 +91,8 @@ def exec_subprocess(exec_str):
     try:                                    
         process = subprocess.run(exec_str.split(" "), capture_output=True)#, shell=True)
         exec_out = process.stdout.decode("utf-8")
-        ouput_(exec_out)
+        if exec_str not in CMD_INGORE:
+            ouput_(exec_out)
         if type(process) is subprocess.CalledProcessError:
             process.communicate(exec_out)
     except Exception as ex:

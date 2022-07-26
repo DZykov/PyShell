@@ -51,11 +51,8 @@ def beautifyT(data):
 
 
 def beautifyV(data):
-    # TODO: add some human touch to the output
     cmd = history.get_last()
-    if cmd in config.CMD_INGORE:
-        data = ""
-    elif cmd in config.CMD_OUT:
+    if cmd in config.CMD_OUT:
         data = config.CMD_OUT[cmd][settings.IN_LANG]
     return data
 
@@ -66,11 +63,10 @@ def print_text(data):
 
 
 def put_voice(data):
-    is_cyrillic = regex.search(r'\p{IsCyrillic}', data)
-    
     txt = beautifyV(data)
+    is_cyrillic = regex.search(r'\p{IsCyrillic}', txt)
     if txt == "":
-        return
+        return 
     if is_cyrillic is None:
         english_voice(txt)
     else:

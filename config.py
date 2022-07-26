@@ -28,8 +28,8 @@ CMD_LIST = {
 
 CMD_OUT = {
     "mocp --play": {
-                    "en": ('I am strating to sing!'),
-                    "ru": ('Начинаю петь!')
+                    "en": ('I am strating to sing'),
+                    "ru": ('Начинаю петь')
                     },
 }
 
