@@ -64,7 +64,7 @@ def beautify(data):
     if settings.A_NAME in data:
         left_t = settings.NAME+settings.SEPERATOR+settings.INFO+settings.ARROW
         print(left_t, end="")
-        data = data.replace("settings.A_NAME", "")
+        data = data.replace(settings.A_NAME, "")
 
         # transform to commands with NLTK
         print(data)
