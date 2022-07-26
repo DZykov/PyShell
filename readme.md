@@ -5,6 +5,7 @@
    - [Demo](#Demo "Goto Demo")
    - [Installation](#Installation "Goto Installation")
    - [Features](#Features "Goto Features")
+   - [Structure](#Structure "Goto Structure")
    - [Voice assistant configutation](#Voice_assistant_configutation "Goto Voice assistant configutation")
    - [shellsrc](#.shellsrc "Goto shellsrc")
 
