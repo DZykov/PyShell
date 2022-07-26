@@ -1,9 +1,9 @@
-cd
+mocp --exit
+mocp --play
+mocp --append /home/demid/Music/Rock
+mocp -S
+tail -3
 ls
-ls
-ls
-ls
-ls
-ls
+head -3
 ls
 ls

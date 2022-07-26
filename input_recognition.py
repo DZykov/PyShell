@@ -17,6 +17,8 @@ import sys
 import queue
 import sounddevice as sd
 import json
+import config
+from fuzzywuzzy import fuzz
 
 
 model_ru = vosk.Model("model_small_ru")
@@ -60,13 +62,31 @@ def in_voice():
 
 
 def beautify(data):
-    # TODO
-    if settings.A_NAME in data:
+    if data.startswith(config.NAME_ALIAS):
         left_t = settings.NAME+settings.SEPERATOR+settings.INFO+settings.ARROW
         print(left_t, end="")
-        data = data.replace(settings.A_NAME, "")
-
-        # transform to commands with NLTK
-        print(data)
-        return data
+        cmd = find_weighted_cmd(filter(data))
+        return cmd
     return 1
+
+
+def filter(data):
+    cmd = data
+    for word in config.NAME_ALIAS:
+        cmd = cmd.replace(word, '').strip()
+    for word in config.TBR_ALIAS:
+        cmd = cmd.replace(word, '').strip()
+    for word in config.INTERJECTIONS:
+        cmd = cmd.replace(word, '').strip()
+    return cmd
+
+
+def find_weighted_cmd(data):
+    cmd = {'command': '', 'weight': 0}
+    for command, aliases in config.CMD_LIST.items():
+        for alias in aliases:
+            weight = fuzz.ratio(data, alias)
+            if weight > cmd['weight']:
+                cmd['command'] = command
+                cmd['weight'] = weight
+    return cmd['command']

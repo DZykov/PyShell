@@ -6,13 +6,13 @@ TBR_ALIAS = ('скажи', 'покажи', 'ответь', 'произнеси',
 
 INTERJECTIONS = ('is', 'are', 'это') # not the right term
 
-# commands are either from collection, built-in or cli apps
+# commands are either from collection, built-in or cli/shell apps
 CMD_LIST = {
-    "mocp -S; mocp --append /home/demid/Music/Rock; mocp --play": ('play music', 'music please', 'поставь музыку', 'сыграй что-нибудь'),
+    "mocp -S | mocp --append /home/demid/Music/Rock | mocp --play": ('play music', 'music please', 'поставь музыку', 'сыграй что-нибудь'),
     "mocp --exit": ('stop', 'enough', 'стоп', 'хватит'),
     "mocp --next": ('next'),
     "mocp --pause": ('pause', 'пауза',),
     "mocp --unpause": ('unpause', 'continue','продолжай'),
     "mocp --previous": ('previous', 'прошлый'),
-    "": (''),
+    "exit": ('exit', 'выход'),
 }
