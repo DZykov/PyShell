@@ -7,7 +7,7 @@
    - [Features](#Features "Goto Features")
    - [Structure](#Structure "Goto Structure")
    - [Voice assistant configutation](#Voice_assistant_configutation "Goto Voice assistant configutation")
-   - [shellsrc](#.shellsrc "Goto shellsrc")
+   - [shellsrc](#shellsrc "Goto shellsrc")
 
 ## Demo
 
