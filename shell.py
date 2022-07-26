@@ -229,6 +229,7 @@ def input_():
 
 
 def main():
+    print("All set!")
     while True:
         inp = input_()
         if inp == 1:

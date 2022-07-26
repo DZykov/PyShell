@@ -16,6 +16,7 @@ import regex
 import torch
 import time
 from history import History
+import config
 import sounddevice as sd
 
 
@@ -45,13 +46,17 @@ model_en.to(device)
 
 
 def beautifyT(data):
-    # TODO
+    # TODO: add some colours or style to text.
     return data
 
 
-def beautifyV(data, cmd):
-    # TODO
+def beautifyV(data):
+    # TODO: add some human touch to the output
     cmd = history.get_last()
+    if cmd in config.CMD_INGORE:
+        data = ""
+    elif cmd in config.CMD_OUT:
+        data = config.CMD_OUT[cmd][settings.IN_LANG]
     return data
 
 
@@ -63,10 +68,13 @@ def print_text(data):
 def put_voice(data):
     is_cyrillic = regex.search(r'\p{IsCyrillic}', data)
     
+    txt = beautifyV(data)
+    if txt == "":
+        return
     if is_cyrillic is None:
-        english_voice(beautifyV(data, history.get_last()))
+        english_voice(txt)
     else:
-        russian_voice(beautifyV(data, history.get_last()))
+        russian_voice(txt)
 
 
 

@@ -25,3 +25,12 @@ CMD_LIST = {
     "change_lang ru":('russian', 'русский'),
     "exit": ('exit', 'выход'),
 }
+
+CMD_OUT = {
+    "mocp --play": {
+                    "en": ('I am strating to sing!'),
+                    "ru": ('Начинаю петь!')
+                    },
+}
+
+CMD_INGORE = ["mocp --append /home/demid/Music/Rock", "mocp -S"]

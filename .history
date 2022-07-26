@@ -1,9 +1,9 @@
-help
-change_lang ru
-save_mode t
+mocp --play
+mocp --append /home/demid/Music/Rock
+mocp -S
 output_mode voice
-output_mode voice
 change_lang ru
-change_lang en
-change_lang en
-mocp --exit
+input_mode voice
+mocp -S
+mocp --append /home/demid/Music/Rock
+mocp --play

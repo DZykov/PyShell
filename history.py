@@ -36,6 +36,7 @@ class History:
 
 
     def get_last(self):
+        self.load_src()
         if len(self.history) > 0:
             return self.history[0]
         return None
