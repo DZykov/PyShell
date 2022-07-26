@@ -10,7 +10,7 @@
 
 ## Demo
 
-![alt text](https://github.com/DZykov/adventure-cli-todo/blob/master/demo.png)
+![alt text](https://github.com/DZykov/PyShell/blob/master/demo.png)
 
 
 ## Installation
