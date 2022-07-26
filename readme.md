@@ -6,13 +6,12 @@
    - [Installation](#Installation "Goto Installation")
    - [Features](#Features "Goto Features")
    - [Voice assistant configutation](#Voice_assistant_configutation "Goto Voice assistant configutation")
-   - [.shellsrc](#.shellsrc "Goto .shellsrc")
+   - [shellsrc](#.shellsrc "Goto shellsrc")
 
 ## Demo
 
-![alt text]()
+![alt text](https://github.com/DZykov/adventure-cli-todo/blob/master/demo.png)
 
-![alt text]()
 
 ## Installation
 #### Build from source
@@ -46,7 +45,7 @@ Clone the repo, open the folder and run the source file
 - CMD_OUT is a dictionary of custom ouputs for specific commands
 - CMD_INGORE is a list of commands whose output should be igored by voice assisant
 
-## .shellsrc
+## shellsrc
 
 - all added scripts have to be in a format: file_name=alias=instruction=description=runner=path
 
