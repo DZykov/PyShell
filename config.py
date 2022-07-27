@@ -1,6 +1,6 @@
 import settings
 
-NAME_ALIAS = (settings.A_NAME, "theta", "nabla", "си си", "карина")
+NAME_ALIAS = (settings.A_NAME, "theta", "nabla", "сиси", "карина", "кoрина", "си си", "си")
 
 TBR_ALIAS = ('скажи', 'покажи', 'ответь', 'произнеси', 'расскажи', 'сколько', 'show', 'how', 'what', 'whats', 'what\'s')
 
@@ -25,7 +25,10 @@ CMD_LIST = {
     "change_lang en": ('english', 'англиский'),
     "change_lang ru":('russian', 'русский'),
     "exit": ('exit', 'выход'),
-    "test": ("test",)
+    "test": ('test',),
+    "telegram": ('telegram', 'телеграм', 'телеграмм'),
+    "debug t": ('debug mode on', 'включи де баг', 'включи ди баг'),
+    "debug f": ('debug mode off', 'выключи де баг', 'выключи ди баг'),
 }
 
 # commands with custom output for both lang
@@ -38,3 +41,6 @@ CMD_OUT = {
 
 # commands that produce output and run in combination with other commands should be ignored
 CMD_INGORE = ["mocp --append /home/demid/Music/Rock", "mocp -S"]
+
+# commands that take input
+CMD_INPUT = ["telegram"]

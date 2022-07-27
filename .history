@@ -1,9 +1,2 @@
-cd ..
-head -4
-ls
-ls
-test
-help
-clear
-mocp --play
-mocp --append /home/demid/Music/Rock
+mocp --exit
+telegram получить все

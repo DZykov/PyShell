@@ -22,7 +22,7 @@ history = History()
 collection.delete_long_cmds()
 
 
-cmds_list = ["help", "cd", "save_mode", "output_mode", "input_mode", "change_lang"]
+cmds_list = ["help", "cd", "save_mode", "output_mode", "input_mode", "change_lang", "debug"]
 
 
 #############################################################################
@@ -83,7 +83,7 @@ def run_command(command):
             runner = collection.get_short(cmd_name)["runner"]
             if runner == settings.NONE:
                 runner = ''
-            exec_str = runner+" "+collection.get_short(cmd_name)["path"]+'/'+collection.get_short(cmd_name)["name"]
+            exec_str = runner+" "+collection.get_short(cmd_name)["path"]+'/'+collection.get_short(cmd_name)["name"]+' '+' '.join(cmd_lst[1:])
             exec_subprocess(exec_str)
 
 
@@ -104,7 +104,7 @@ def find_command(command):
     try:
         if command.split()[0] in cmds_list:
             return settings.NEUTRAL_ARGS
-        check = collection.check_command(command, settings.SAVE_MODE)
+        check = collection.check_command(command.split()[0], settings.SAVE_MODE)
         return check
     except:
         if command in cmds_list:
@@ -133,6 +133,8 @@ def local_cmds(cmd_name, cmd_lst):
                 return input_mode(data)
             elif cmd_name == "change_lang":
                 return change_input_lang(data)
+            if cmd_name == "debug":
+                return debug(data)
         except:
             return settings.WRONG_ARGS
     else: 
@@ -154,7 +156,10 @@ def local_cmds(cmd_name, cmd_lst):
 ####                         Built-in commands                           ####
 ####                                                                     ####
 #############################################################################
-
+def debug(save):
+    """Toogle save mode"""
+    settings.DEBUG = save in ("true", "True", "t")
+    return "Debug set to {}".format(settings.DEBUG)
 
 def change_input_lang(lang):
     if lang == settings.LANG_EN or lang == settings.FLANG_EN:

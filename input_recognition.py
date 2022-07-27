@@ -61,7 +61,9 @@ def in_voice():
 
 
 def beautify(data):
-    #print(data)
+    if settings.DEBUG:
+        print('--------------------------')
+        print(data)
     if data.startswith(config.NAME_ALIAS):
         cmd = find_weighted_cmd(filter(data))
         left_t = settings.NAME+settings.SEPERATOR+settings.INFO+settings.ARROW+" "
@@ -83,11 +85,31 @@ def filter(data):
 
 
 def find_weighted_cmd(data):
-    cmd = {'command': '', 'weight': 0}
+    cmd = {'command': 'None', 'weight': 0}
     for command, aliases in config.CMD_LIST.items():
         for alias in aliases:
             weight = fuzz.ratio(data, alias)
             if weight > cmd['weight']:
                 cmd['command'] = command
                 cmd['weight'] = weight
+    cmd1 = {'command': '', 'weight': 0}
+    txt = data
+    if len(data.split()) > 1:
+        txt = data.split()[0]
+    for command, aliases in config.CMD_LIST.items():
+        for alias in aliases:
+            weight = fuzz.ratio(txt, alias)
+            if weight > cmd1['weight']:
+                cmd1['command'] = command
+                cmd1['weight'] = weight
+    if cmd1['weight'] > cmd['weight']:
+        cmd['command'] = cmd1['command'] 
+        cmd['weight'] = cmd1['weight']
+    if settings.DEBUG:
+        print(cmd)
+    if cmd['command'] in config.CMD_INPUT:
+        n_data = data.split()
+        n_data[0] = cmd['command']
+        data = ' '.join(n_data)
+        return data
     return cmd['command']
