@@ -28,6 +28,7 @@ Clone the repo, open the folder and run the source file
 ## Features
    - Shell supports all comands and unix based packages
    - Voice assistant supports two languages: english and russian
+   - Voice assistant can take inputs for commands
    - Easy configuaration of shell scripts and voice assistant
    - Easy change of voice
    - Supports piping
@@ -46,6 +47,7 @@ Clone the repo, open the folder and run the source file
 - CMD_LIST is a dictionary of commands and voice input
 - CMD_OUT is a dictionary of custom ouputs for specific commands
 - CMD_INGORE is a list of commands whose output should be igored by voice assisant
+- CMD_INPUT is a list of commands that take input
 
 ## shellsrc
 
